@@ -16,6 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Media-Manager.API\Media-Manager.API.csproj" />
+    <ProjectReference Include="..\Media-Manager.Core\Media-Manager.Core.csproj" />
+    <ProjectReference Include="..\Media-Manager.Infrastructure\Media-Manager.Infrastructure.csproj" />
+    <ProjectReference Include="..\Media-Manager.MVC\Media-Manager.MVC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
