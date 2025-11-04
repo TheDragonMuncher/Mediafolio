@@ -34,9 +34,9 @@ public class VideoGame
 
     // Relations
 
-    // [Required]
-    // public int MediaObjectId { get; set; }
-    // [Required]
-    // public MediaObject MediaObject { get; set; }
+    [Required]
+    public int MediaObjectId { get; set; }
+    [Required]
+    public MediaObject MediaObject { get; set; }
 
 }

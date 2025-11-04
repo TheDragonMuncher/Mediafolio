@@ -27,11 +27,6 @@ public class ApplicationDbContext : DbContext
             entity.Property(vg => vg.Description).IsRequired().HasMaxLength(500);
             entity.Property(vg => vg.UserPlayTime).HasDefaultValue(0);
             entity.Property(vg => vg.EstimatedPlayTime).HasDefaultValue(0);
-
-            // entity.HasOne(vg => vg.MediaObject)
-            //     .WithOne(mo => mo.VideoGame)
-            //     .HasForeignKey(vg => vg.MediaObjectId)
-            //     .OnDelete(DeleteBehavior.Cascade);
         });
 
         // modelBuilder.Entity<Video> (entity =>

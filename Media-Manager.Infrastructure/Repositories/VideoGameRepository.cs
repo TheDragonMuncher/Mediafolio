@@ -1,6 +1,8 @@
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace MediaManager.Infrastructure.Repositories;
 
@@ -17,29 +19,56 @@ public class VideoGameRepository : IVideoGameRepository
         game.CreatedAt = DateTime.UtcNow;
 
         var mediaObject = new MediaObject();
+        mediaObject.VideoGame = game;
+        mediaObject.VideoGAmeId = game.Id;
 
         _context.VideoGames.Add(game);
+        _context.MediaObjects.Add(mediaObject);
         await _context.SaveChangesAsync();
         return game;
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var currentGame = await _context.VideoGames.FindAsync(id);
+        if (currentGame == null)
+        {
+            return false;
+        }
+
+        var mediaObject = await _context.MediaObjects.FindAsync(id);
+        _context.Remove(mediaObject);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public Task<ICollection<VideoGame>> GetAllAsync()
+    public async Task<ICollection<VideoGame>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.VideoGames.ToListAsync();
     }
 
-    public Task<VideoGame> GetByIdAsync(int id)
+    public async Task<VideoGame?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.VideoGames.FindAsync(id);
     }
 
-    public Task<VideoGame> UpdateAsync(VideoGame game)
+    public async Task<VideoGame> UpdateAsync(VideoGame game)
     {
-        throw new NotImplementedException();
+        var currentGame = await _context.VideoGames.FindAsync(game.Id);
+        if (currentGame == null)
+        {
+            return null;
+        }
+
+        currentGame.Title = game.Title;
+        currentGame.Description = game.Description;
+        currentGame.EstimatedPlayTime = game.EstimatedPlayTime;
+        currentGame.UserPlayTime = game.UserPlayTime;
+        currentGame.Tags = game.Tags;
+        currentGame.UpdatedAt = DateTime.UtcNow;
+
+        _context.VideoGames.Update(currentGame);
+        await _context.SaveChangesAsync();
+        return currentGame;
     }
 }
