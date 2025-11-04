@@ -20,7 +20,7 @@ public class VideoGameRepository : IVideoGameRepository
 
         var mediaObject = new MediaObject();
         mediaObject.VideoGame = game;
-        mediaObject.VideoGAmeId = game.Id;
+        mediaObject.Id = game.Id;
 
         _context.VideoGames.Add(game);
         _context.MediaObjects.Add(mediaObject);

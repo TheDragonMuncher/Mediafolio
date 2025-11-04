@@ -20,7 +20,25 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<VideoGame> (entity =>
+        modelBuilder.Entity<MediaObject>(entity =>
+        {
+            entity.HasOne(mo => mo.VideoGame)
+                .WithOne(vg => vg.MediaObject)
+                .HasForeignKey<MediaObject>(mo => mo.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // entity.HasOne(mo => mo.Video)
+            //     .WithOne(v => v.MediaObject)
+            //     .HasForeignKey<MediaObject>(mo => mo.Id)
+            //     .OnDelete(DeleteBehavior.Cascade);
+            
+            // entity.HasOne(mo => mo.Book)
+            //     .WithOne(b => b.MediaObject)
+            //     .HasForeignKey<MediaObject>(mo => mo.Id)
+            //     .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<VideoGame>(entity =>
         {
             entity.HasKey(vg => vg.Id);
             entity.Property(vg => vg.Title).IsRequired().HasMaxLength(100);
@@ -29,12 +47,12 @@ public class ApplicationDbContext : DbContext
             entity.Property(vg => vg.EstimatedPlayTime).HasDefaultValue(0);
         });
 
-        // modelBuilder.Entity<Video> (entity =>
+        // modelBuilder.Entity<Video>(entity =>
         // {
 
         // });
 
-        // modelBuilder.Entity<Book> (entity =>
+        // modelBuilder.Entity<Book>(entity =>
         // {
 
         // });
