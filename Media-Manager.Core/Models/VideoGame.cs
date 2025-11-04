@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;
 
@@ -15,7 +16,8 @@ public class VideoGame
     public int UserPlayTime { get; set; } = 0;
     [Range(0, int.MaxValue, ErrorMessage = "The estimated play time must be at least 0")]
     public int EstimatedPlayTime { get; set; } = 0;
-    // public ICollection<VideoGameTagEnum> Tags { get; set; }
+    [Required(ErrorMessage = "There must be at least 1 tag")]
+    public ICollection<VideoGameTagEnum> Tags { get; set; }
     // public Review GameReview { get; set; }
     // public ICollection<DailyLog> DailyLogs { get; set; }
 
