@@ -121,4 +121,16 @@ public class VideoGameController : ControllerBase
         await _repository.UpdateAsync(videoGame);
         return Ok(videoGame);
     }
+
+    // DELETE: api/tasks/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new { message = $"Video game with id: {id} not found" });
+        }
+        return NoContent();
+    }
 }
