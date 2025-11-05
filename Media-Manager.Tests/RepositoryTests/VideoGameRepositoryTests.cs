@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
 using MediaManager.Infrastructure.Repositories;
@@ -70,21 +71,34 @@ public class VideoGameRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void GetAllAsync_ReturnsAllVideoGames()
+    public async Task GetAllAsync_ReturnsAllVideoGames()
     {
+        // Act
+        var result = await _repository.GetAllAsync();
 
+        // Assert
+        Assert.Equal(2, result.Count());
     }
 
     [Fact]
-    public void GetByIdAsync_ValidId_ReturnsVideoGame()
+    public async Task GetByIdAsync_ValidId_ReturnsVideoGame()
     {
+        // Act
+        var result = await _repository.GetByIdAsync(0);
 
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("Skyrim", result.Title);
     }
 
     [Fact]
-    public void GetByIdAsync_InvalidId_ReturnsNull()
+    public async Task GetByIdAsync_InvalidId_ReturnsNull()
     {
+        // Act
+        var result = await _repository.GetByIdAsync(3);
 
+        // Assert
+        Assert.Null(result);
     }
 
     [Fact]
