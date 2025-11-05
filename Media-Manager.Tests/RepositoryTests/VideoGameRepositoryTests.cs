@@ -131,33 +131,70 @@ public class VideoGameRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void CreateAsync_InvalidVideoGame_ReturnsNull()
+    public async Task UpdateAsync_ValidVideoGame_UpdatesInDatabase()
     {
+        // Arrange 
+        var game = new VideoGame
+        {
+            Id = 1,
+            Title = "Mario Galaxy",
+            Description = "Wahooo!",
+            EstimatedPlayTime = double.MaxValue,
+            UserPlayTime = 2
+        };
 
+        // Act
+        await _repository.UpdateAsync(game);
+        var testGame = await _repository.GetByIdAsync(game.Id);
+
+        // Assert
+        Assert.NotNull(testGame);
+        Assert.Equal(game.Title, testGame.Title);
     }
 
     [Fact]
-    public void UpdateAsync_ValidVideoGame_UpdatesInDatabase()
+    public async Task UpdateAsync_InvalidVideoGame_ReturnsNull()
     {
+        // Arrange 
+        var game = new VideoGame
+        {
+            Id = 3,
+            Title = "Mario Galaxy",
+            Description = "Wahooo!",
+            EstimatedPlayTime = double.MaxValue,
+            UserPlayTime = 2
+        };
 
+        // Act
+        await _repository.UpdateAsync(game);
+        var testGame = await _repository.GetByIdAsync(game.Id);
+
+        // Assert
+        Assert.Null(testGame);
     }
 
     [Fact]
-    public void UpdateAsync_InvalidVideoGame_ReturnsNull()
+    public async Task DeleteAsync_ValidId_RemovesFromDatabase()
     {
+        // Act
+        var result = await _repository.DeleteAsync(0);
+        var game = _context.VideoGames.Find(0);
+        var mediaObject = _context.MediaObjects.Find(0);
 
+        // Assert
+        Assert.True(result);
+        Assert.Null(game);
+        Assert.Null(mediaObject);
     }
 
     [Fact]
-    public void DeleteAsync_ValidId_RemovesFromDatabase()
+    public async Task DeleteAsync_InvalidId_ReturnsFalse()
     {
+        // Act
+        var result = await _repository.DeleteAsync(4);
 
-    }
-
-    [Fact]
-    public void DeleteAsync_InvalidId_ReturnsFalse()
-    {
-        
+        // Assert
+        Assert.False(result);
     }
 
     public void Dispose()
