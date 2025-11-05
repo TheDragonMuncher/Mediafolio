@@ -1,3 +1,4 @@
+using MediaManager.Core.DTOs;
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ public class VideoGameController : ControllerBase
 
     // GET: api/videoGames/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<IEnumerable<VideoGame>>> GetById(int id)
+    public async Task<ActionResult<VideoGame>> GetById(int id)
     {
         var videoGame = await _repository.GetByIdAsync(id);
 
@@ -37,5 +38,31 @@ public class VideoGameController : ControllerBase
         return Ok(videoGame);
     }
 
+    // POST: api/videoGames
+    [HttpPost]
+    public async Task<ActionResult<VideoGame>> Create([FromBody] CreateVideoGameDto videoGameDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
+        var videoGame = new VideoGame
+        {
+            Title = videoGameDto.Title,
+            Description = videoGameDto.Description,
+            EstimatedPlayTime = videoGameDto.EstimatedPlayTime,
+            UserPlayTime = videoGameDto.UserPlayTime,
+            Tags = videoGameDto.Tags,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        var createdVideoGame = await _repository.CreateAsync(videoGame);
+
+        return CreatedAtAction(
+            nameof(GetById),
+            new { id = createdVideoGame.Id },
+            createdVideoGame
+        );
+    }
 }
