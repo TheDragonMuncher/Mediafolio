@@ -1,4 +1,5 @@
 using System.Data.Common;
+using Media_Manager.Core.Models;
 using MediaManager.Core.Models;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<VideoGame> VideoGames;
     public DbSet<Video> Videos;
     public DbSet<Book> Books;
-    // public DbSet<Review> Reviews;
+    public DbSet<Review> Reviews;
     // public DbSet<DailyLog> DailyLogs;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,9 +75,6 @@ public class ApplicationDbContext : DbContext
 
         });
 
-
-
-
         modelBuilder.Entity<Book>(entity =>
         {
             entity.HasKey(b => b.Id);
@@ -93,6 +91,20 @@ public class ApplicationDbContext : DbContext
                  .WithOne(mo => mo.Book)
                  .HasForeignKey<Book>(b => b.MediaObjectId)
                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Review>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Title).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Content).IsRequired().HasMaxLength(1500);
+            entity.Property(e => e.Rating).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.EditedAt);
+            entity.HasOne(e => e.MediaObject)
+            .WithMany(mo => mo.Reviews)
+            .HasForeignKey(mo => mo.MediaObjectId)
+            .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
