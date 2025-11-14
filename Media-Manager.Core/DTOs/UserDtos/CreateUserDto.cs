@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace MediaManager.Core.DTOs;
+namespace MediaManager.Core.DTOs.UserDtos;
 
 public class CreateUserDto
 {
