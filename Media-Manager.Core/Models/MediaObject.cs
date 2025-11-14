@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;
@@ -12,4 +11,6 @@ public class MediaObject
     public Book? Book { get; set; }
     // public Review? Review { get; set; }
     // public ICollection<DailyLog>? DailyLogs { get; set; }
+    public required User User { get; set; }
+    public required int UserId { get; set; }
 }

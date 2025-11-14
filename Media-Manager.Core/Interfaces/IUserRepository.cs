@@ -7,6 +7,6 @@ public interface IUserRepository
     Task<ICollection<User>> GetallAsync();
     Task<User> GetByIdAsync(int id);
     Task<User> CreateAsync(User user, Role role);
-    Task<User> UpdateAsync(User user);
+    Task<User> UpdateAsync(User? user, Role? role);
     Task<bool> DeleteAsync(int id);
 }
