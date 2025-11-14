@@ -9,12 +9,14 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<MediaObject> MediaObjects;
-    public DbSet<VideoGame> VideoGames;
-    public DbSet<Video> Videos;
-    public DbSet<Book> Books;
-    // public DbSet<Review> Reviews;
-    // public DbSet<DailyLog> DailyLogs;
+
+
+    public DbSet<MediaObject> MediaObjects {get; set;}
+    public DbSet<VideoGame> VideoGames {get; set;}
+    public DbSet<Video> Videos {get; set;}
+    public DbSet<Book> Books {get; set;}
+    // public DbSet<Review> Reviews {get; set;}
+    // public DbSet<DailyLog> DailyLogs {get; set;}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
