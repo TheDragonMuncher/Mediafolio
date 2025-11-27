@@ -36,29 +36,6 @@ public class ApplicationDbContext : DbContext
             entity.ToTable("Roles");
         });
 
-        modelBuilder.Entity<MediaObject>(entity =>
-        {
-            entity.HasKey(mo => new { mo.Id, mo.Type });
-
-            entity.HasOne(mo => mo.User)
-                .WithMany(u => u.MediaObjects)
-                .HasForeignKey(mo => mo.UserId);
-        });
-
-        modelBuilder.Entity<VideoGame>(entity =>
-        {
-            entity.HasKey(vg => vg.Id);
-            entity.Property(vg => vg.Title).IsRequired().HasMaxLength(100);
-            entity.Property(vg => vg.Description).IsRequired().HasMaxLength(500);
-            entity.Property(vg => vg.UserPlayTime).HasDefaultValue(0);
-            entity.Property(vg => vg.EstimatedPlayTime).HasDefaultValue(0);
-
-            entity.HasOne(vg => vg.MediaObject)
-                .WithOne(mo => mo.VideoGame)
-                .HasForeignKey<VideoGame>(vg => vg.MediaObjectId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
         modelBuilder.Entity<Video>(entity =>
         {
             entity.HasKey(v => v.Id);
@@ -75,6 +52,8 @@ public class ApplicationDbContext : DbContext
 
         });
 
+        new MediaObjectConfiguration().Configure(modelBuilder.Entity<MediaObject>());
+        new VideoGameConfiguration().Configure(modelBuilder.Entity<VideoGame>());
         new BookConfiguration().Configure(modelBuilder.Entity<Book>());
         new ReviewConfiguration().Configure(modelBuilder.Entity<Review>());
     }
