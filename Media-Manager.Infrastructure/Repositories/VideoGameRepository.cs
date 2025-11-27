@@ -28,7 +28,7 @@ public class VideoGameRepository : IVideoGameRepository
         // get the game, media object, and associated user
         var newGame = _context.VideoGames.Where(g => g.MediaObject == mediaObject).FirstOrDefault();
         var newMediaObject = _context.MediaObjects.Where(mo => mo.VideoGame == game).FirstOrDefault();
-        var user = _context.Users.Find(userId);
+        var user = await _context.Users.FindAsync(userId);
 
         // throw error if there are nulls
         if (newGame == null || newMediaObject == null)
