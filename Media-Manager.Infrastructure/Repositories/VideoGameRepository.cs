@@ -13,19 +13,34 @@ public class VideoGameRepository : IVideoGameRepository
         _context = context;
     }
 
-    public async Task<VideoGame> CreateAsync(VideoGame game)
+    public async Task<VideoGame> CreateAsync(VideoGame game, int userId)
     {
+        // create and add video game/media object
         game.CreatedAt = DateTime.UtcNow;
+        var mediaObject = new MediaObject
+        {
+            Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
+            VideoGame = game
+        };
+        _context.VideoGames.Add(game);
+        _context.MediaObjects.Add(mediaObject);
 
-        // var mediaObject = new MediaObject
-        // {
-        //     Id = game.Id,
-        //     Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
-        //     VideoGame = game
-        // };
+        // get the game, media object, and associated user
+        var newGame = _context.VideoGames.Where(g => g.MediaObject == mediaObject).FirstOrDefault();
+        var newMediaObject = _context.MediaObjects.Where(mo => mo.VideoGame == game).FirstOrDefault();
+        var user = _context.Users.Find(userId);
 
-        // _context.VideoGames.Add(game);
-        // _context.MediaObjects.Add(mediaObject);
+        // throw error if there are nulls
+        if (newGame == null || newMediaObject == null)
+        {
+            throw new Exception();
+        }
+
+        // properly assign ids to media objects
+        newMediaObject.Id = newGame.Id;
+        newMediaObject.User = user;
+        _context.MediaObjects.Update(newMediaObject);
+
         await _context.SaveChangesAsync();
         return game;
     }
