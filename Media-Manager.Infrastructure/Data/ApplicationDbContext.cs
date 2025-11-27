@@ -56,5 +56,6 @@ public class ApplicationDbContext : DbContext
         new VideoGameConfiguration().Configure(modelBuilder.Entity<VideoGame>());
         new BookConfiguration().Configure(modelBuilder.Entity<Book>());
         new ReviewConfiguration().Configure(modelBuilder.Entity<Review>());
+        new DailyLogConfiguration().Configure(modelBuilder.Entity<DailyLog>());
     }
 }
