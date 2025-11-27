@@ -1,5 +1,3 @@
-using System;
-
 namespace MediaManager.Core.Models;
 
 public interface IBookRepository

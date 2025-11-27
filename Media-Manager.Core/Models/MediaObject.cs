@@ -1,4 +1,3 @@
-using Media_Manager.Core.Models;
 using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;

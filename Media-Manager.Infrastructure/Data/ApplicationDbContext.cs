@@ -1,8 +1,5 @@
-using System.Data.Common;
-using Media_Manager.Core.Models;
-using Media_Manager.Infrastructure.Persistence;
 using MediaManager.Core.Models;
-using Microsoft.CodeAnalysis.Operations;
+using MediaManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediaManager.Infrastructure.Data;
@@ -18,7 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Video> Videos {get; set;}
     public DbSet<Book> Books { get; set; }
     public DbSet<Review> Reviews { get; set; }
-    // public DbSet<DailyLog> DailyLogs {get; set;}
+    public DbSet<DailyLog> DailyLogs {get; set;}
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
 

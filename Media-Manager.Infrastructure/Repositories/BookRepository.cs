@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MediaManager.Infrastructure.Repositories;
 
-
 public class BookRepository : IBookRepository
 {
 
