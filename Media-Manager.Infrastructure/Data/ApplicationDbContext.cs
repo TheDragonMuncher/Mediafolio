@@ -26,20 +26,12 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(u => u.Id);
-            entity.Property(u => u.Email).IsRequired();
-            entity.Property(u => u.UserName).IsRequired();
-            entity.Property(u => u.PasswordHash).IsRequired();
-            entity.Property(u => u.NormalizedEmail).IsRequired();
-            entity.Property(u => u.NormalizedUserName).IsRequired();
-            entity.Property(u => u.FirstName).IsRequired();
-            entity.Property(u => u.LastName).IsRequired();
-            entity.Property(u => u.PhoneNumber).IsRequired();
+            entity.ToTable("Users");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.Property(r => r.Description).IsRequired();
+            entity.ToTable("Roles");
         });
 
         modelBuilder.Entity<MediaObject>(entity =>
