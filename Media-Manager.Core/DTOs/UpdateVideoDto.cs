@@ -7,10 +7,6 @@ namespace MediaManager.Core.DTOs;
 public class UpdateVideoDto
 {
         // Properties
-
-        [Required]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "The video must have a title")]
         [MaxLength(100, ErrorMessage = "The max length of the title is 100 characters")]
         public string Title { get; set; } = string.Empty;

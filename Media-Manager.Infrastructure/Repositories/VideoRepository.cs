@@ -18,19 +18,20 @@ public class VideoRepository : IVideoRepository
     }
 
 
-    public async Task<Video> CreateAsync(Video video)
+    public async Task<Video> CreateAsync(Video video, int userId)
     {
         video.CreatedAt = DateTime.UtcNow;
 
-        // var mediaObject = new MediaObject
-        // {
-        //     Id = video.Id,
-        //     Type = Core.Enums.MediaObjectTypeEnum.Video,
-        //     Video = video
-        // };
+        var mediaObject = new MediaObject
+        {
+            //Id = video.Id,
+            UserId = userId,
+            Type = Core.Enums.MediaObjectTypeEnum.Video,
+            Video = video
+        };
 
-        // _context.Videos.Add(video);
-        // _context.MediaObjects.Add(mediaObject);
+        //_context.Videos.Add(video);
+        _context.MediaObjects.Add(mediaObject);
         await _context.SaveChangesAsync();
         return video;
 
@@ -43,9 +44,17 @@ public class VideoRepository : IVideoRepository
         {
             return false;
         }
+        
+        var mediaObject = await _context.MediaObjects.FindAsync(currentVideo.MediaObjectId);
+    
 
-        _context.Videos.Remove(currentVideo);
+        if (mediaObject == null)
+        {
+            _context.Videos.Remove(currentVideo);
+            return true; 
+        }
 
+        _context.MediaObjects.Remove(mediaObject);
         await _context.SaveChangesAsync();
 
         return true;
@@ -62,7 +71,7 @@ public class VideoRepository : IVideoRepository
         return await _context.Videos.FindAsync(id);
     }
 
-    public async Task<Video> UpdateAsync(Video video)
+    public async Task<Video?> UpdateAsync(Video video)
     {
         var currentVideo = await _context.Videos.FindAsync(video.Id);
 
