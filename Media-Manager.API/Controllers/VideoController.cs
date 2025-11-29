@@ -71,4 +71,34 @@ public class VideoController : ControllerBase
         );
     }
 
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateVideoDto updateVideoDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var video = new Video
+        {
+            Id = id,
+            Title = updateVideoDto.Title,
+            Description = updateVideoDto.Description,
+            UserWatchTime = updateVideoDto.UserWatchTime,
+            VideoDuration = updateVideoDto.VideoDuration,
+            NumberOfEpisodes = updateVideoDto.NumberOfEpisodes,
+            Tags = updateVideoDto.Tags
+        };
+
+        var updatedVideo = await _repository.UpdateAsync(video);
+        if (updatedVideo == null)
+        {
+            return NotFound(new { message = $"Video with id: {id} not found" });
+        }
+
+        return Ok(updatedVideo);
+    }
+
+
 }
