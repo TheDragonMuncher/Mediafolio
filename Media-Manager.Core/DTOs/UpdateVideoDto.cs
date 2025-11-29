@@ -15,8 +15,8 @@ public class UpdateVideoDto
         [MaxLength(500, ErrorMessage = "The max length of the description is 500 characters")]
         public string Description { get; set; } = string.Empty;
 
-        [Range(0, int.MaxValue, ErrorMessage = "The user's watch time must be at least 0")]
-        public int UserWatchTime { get; set; } = 0; // minutes
+        [Range(0, double.MaxValue, ErrorMessage = "The user's watch time must be at least 0")]
+        public double UserWatchTime { get; set; } = 0; // minutes
 
         [Range(0, int.MaxValue, ErrorMessage = "The video duration must be at least 0")]
         public int VideoDuration { get; set; } = 0; // minutes
