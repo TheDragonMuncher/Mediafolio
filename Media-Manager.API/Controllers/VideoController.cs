@@ -42,8 +42,8 @@ public class VideoController : ControllerBase
     }
 
     //POST: api/video
-    [HttpPost("userId")]
-    public async Task<ActionResult<Task>> CreatePost([FromBody] CreateVideoDto videoDto, int userId)
+    [HttpPost("{userId}")]
+    public async Task<ActionResult<Video>> CreatePost([FromBody] CreateVideoDto videoDto, int userId)
     {
         if (!ModelState.IsValid)
         {
@@ -71,7 +71,7 @@ public class VideoController : ControllerBase
         );
     }
 
-
+    //PUT: api/posts/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateVideoDto updateVideoDto)
     {
@@ -100,5 +100,44 @@ public class VideoController : ControllerBase
         return Ok(updatedVideo);
     }
 
+    // PATCH: api/video/{id}
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchVideoGame(int id, [FromBody] JsonPatchDocument<Video> patchDoc)
+    {
+        if (patchDoc == null)
+        {
+            return BadRequest(new { message = "Patch document is null" });
+        }
+
+        var vidoe = await _repository.GetByIdAsync(id);
+        if (vidoe == null)
+        {
+            return NotFound(new { message = $"Video game with id: {id} not found" });
+        }
+
+        patchDoc.ApplyTo(vidoe, ModelState);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        vidoe.UpdatedAt = DateTime.UtcNow;
+        await _repository.UpdateAsync(vidoe);
+        return Ok(vidoe);
+    }
+
+
+    // DELETE: api/video/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new { message = $"Video game with id: {id} not found" });
+        }
+        return NoContent();
+    }
 
 }
