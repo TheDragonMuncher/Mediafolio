@@ -20,6 +20,6 @@ public class Book
 
     //Relations
     public int MediaObjectId { get; set; }
-    public MediaObject MediaObject { get; set; }
+    public MediaObject? MediaObject { get; set; }
 
 }

@@ -1,3 +1,4 @@
+using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,19 +16,18 @@ public class BookRepository : IBookRepository
         _context = context;
     }
 
-    public async Task<Book> CreateAsync(Book book)
+    public async Task<Book> CreateAsync(Book book, int UserId)
     {
         book.CreatedAt = DateTime.UtcNow;
 
-        // var MediaObject = new MediaObject
-        // {
-        //     Id = book.Id,
-        //     Type = Core.Enums.MediaObjectTypeEnum.Book,
-        //     Book = book
-        // };
+        var MediaObject = new MediaObject
+        {
+            UserId = UserId,
+            Type = Core.Enums.MediaObjectTypeEnum.Book,
+            Book = book
+        };
 
-        // _context.Books.Add(book);
-        // _context.MediaObjects.Add(MediaObject);
+        _context.MediaObjects.Add(MediaObject);
         await _context.SaveChangesAsync();
         return book;
     }
@@ -39,9 +39,19 @@ public class BookRepository : IBookRepository
         {
             return false;
         }
+        
+        var mediaObject = await _context.MediaObjects.FindAsync(currentBook.MediaObjectId);
+    
 
-        _context.Books.Remove(currentBook);
+        if (mediaObject == null)
+        {
+            _context.Books.Remove(currentBook);
+            return true; 
+        }
+
+        _context.MediaObjects.Remove(mediaObject);
         await _context.SaveChangesAsync();
+
         return true;
     }
 
@@ -55,7 +65,7 @@ public class BookRepository : IBookRepository
         return await _context.Books.FindAsync(id);
     }
 
-    public async Task<Book> UpdateAsync(Book book)
+    public async Task<Book?> UpdateAsync(Book book)
     {   
         var currentBook = await _context.Books.FindAsync(book.Id);
         if (currentBook == null)
