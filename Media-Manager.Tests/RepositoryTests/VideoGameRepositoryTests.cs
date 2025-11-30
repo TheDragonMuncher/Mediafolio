@@ -118,7 +118,7 @@ public class VideoGameRepositoryTests : IDisposable
         };
 
         // Act
-        await _repository.CreateAsync(game);
+        await _repository.CreateAsync(game, game.Id);
 
         var testGame = await _repository.GetByIdAsync(2);
         var testMediaObject = _context.MediaObjects.Find(2);
