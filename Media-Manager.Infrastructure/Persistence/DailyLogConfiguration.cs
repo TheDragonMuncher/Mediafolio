@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MediaManager.Infrastructure.Persistence;
 
-public class BookConfiguration : IEntityTypeConfiguration<DailyLog>
+public class DailyLogConfiguration : IEntityTypeConfiguration<DailyLog>
 {
     public void Configure(EntityTypeBuilder<DailyLog> builder)
     {
