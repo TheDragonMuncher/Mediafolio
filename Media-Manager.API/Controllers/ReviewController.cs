@@ -4,6 +4,7 @@ using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Media_Manager.API.Controllers
 {
@@ -57,6 +58,7 @@ namespace Media_Manager.API.Controllers
 
             var updateReview = dto.FromUpdateReviewDto();
             updateReview.Id = reviewId;
+            await _repository.UpdateAsync(updateReview);
             return Ok(updateReview);
 
         }
