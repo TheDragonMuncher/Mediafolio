@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.MVC", "Media-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.API", "Media-Manager.API\Media-Manager.API.csproj", "{CD497630-6768-4D51-A93D-B3915B7810E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediafolio", "Mediafolio\Mediafolio.csproj", "{603A41F1-80F9-4036-BA49-28C08926F15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{CD497630-6768-4D51-A93D-B3915B7810E3}.Release|x64.Build.0 = Release|Any CPU
 		{CD497630-6768-4D51-A93D-B3915B7810E3}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD497630-6768-4D51-A93D-B3915B7810E3}.Release|x86.Build.0 = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|x64.Build.0 = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Debug|x86.Build.0 = Debug|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|x64.ActiveCfg = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|x64.Build.0 = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|x86.ActiveCfg = Release|Any CPU
+		{603A41F1-80F9-4036-BA49-28C08926F15F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
