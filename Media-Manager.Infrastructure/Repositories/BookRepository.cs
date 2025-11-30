@@ -16,7 +16,7 @@ public class BookRepository : IBookRepository
         _context = context;
     }
 
-    public async Task<Book?> CreateAsync(Book book, int UserId)
+    public async Task<Book?> CreateAsync(Book book, string UserId)
     {
         book.CreatedAt = DateTime.UtcNow;
 

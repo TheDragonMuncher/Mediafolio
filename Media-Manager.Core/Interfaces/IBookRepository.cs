@@ -4,7 +4,7 @@ public interface IBookRepository
 {
     Task<ICollection<Book>> GetAllAsync();
     Task<Book?> GetByIdAsync(int id);
-    Task<Book?> CreateAsync(Book book, int UserId);
+    Task<Book?> CreateAsync(Book book, string UserId);
     Task<bool> DeleteAsync(int id);
     Task<Book?> UpdateAsync(Book book);
 }

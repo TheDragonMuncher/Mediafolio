@@ -42,7 +42,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost("{userId}")]
-    public async Task<ActionResult<Book>> CreatePost([FromBody] CreateBookDto dto, int userId)
+    public async Task<ActionResult<Book>> CreatePost([FromBody] CreateBookDto dto, string userId)
     {
         if (!ModelState.IsValid)
         {

@@ -18,7 +18,7 @@ public class VideoRepository : IVideoRepository
     }
 
 
-    public async Task<Video> CreateAsync(Video video, int userId)
+    public async Task<Video> CreateAsync(Video video, string userId)
     {
         video.CreatedAt = DateTime.UtcNow;
 

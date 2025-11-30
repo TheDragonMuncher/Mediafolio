@@ -43,7 +43,7 @@ public class VideoController : ControllerBase
 
     //POST: api/video
     [HttpPost("{userId}")]
-    public async Task<ActionResult<Video>> CreatePost([FromBody] CreateVideoDto videoDto, int userId)
+    public async Task<ActionResult<Video>> CreatePost([FromBody] CreateVideoDto videoDto, string userId)
     {
         if (!ModelState.IsValid)
         {
