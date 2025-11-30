@@ -1,6 +1,7 @@
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediaManager.Infrastructure.Repositories;
 
@@ -13,9 +14,19 @@ public class ReviewRepository : IReviewRepository
         _context = context;
     }
 
-    public Task<Review> CreateAsync(Review review)
+    public async Task<Review?> CreateAsync(Review review)
     {
-        throw new NotImplementedException();
+        var media = await _context.MediaObjects.FindAsync(review.MediaObjectId);
+        if (media == null)
+        {
+            return null;
+        }
+        review.CreatedAt = DateTime.UtcNow;
+        _context.Reviews.Add(review);
+
+        await _context.SaveChangesAsync();
+        return review;
+
     }
 
     public Task<bool> DeleteAsync(int id)
@@ -23,18 +34,30 @@ public class ReviewRepository : IReviewRepository
         throw new NotImplementedException();
     }
 
-    public Task<ICollection<Review>> GetAllAsync()
+    public async Task<ICollection<Review>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Reviews.ToListAsync();
     }
 
-    public Task<Review> GetByIdAsync(int id)
+    public async Task<Review?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Reviews.FindAsync(id);
     }
 
-    public Task<Review> UpdateAsync(Review review)
+    public async Task<Review?> UpdateAsync(Review review)
     {
-        throw new NotImplementedException();
+        var existingReview = await _context.Reviews.FindAsync(review.Id);
+        if (existingReview == null)
+        {
+            return null;
+        }
+
+        existingReview.Title = review.Title;
+        existingReview.Content = review.Content;
+        existingReview.Rating = review.Rating;
+        existingReview.UpdatedAt = DateTime.UtcNow;
+        
+        await _context.SaveChangesAsync();
+        return existingReview;
     }
 }
