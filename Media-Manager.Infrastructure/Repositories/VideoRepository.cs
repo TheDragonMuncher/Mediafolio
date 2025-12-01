@@ -24,8 +24,6 @@ public class VideoRepository : IVideoRepository
 
         var mediaObject = new MediaObject
         {
-            //Id = video.Id,
-            UserId = userId,
             Type = Core.Enums.MediaObjectTypeEnum.Video,
             Video = video
         };

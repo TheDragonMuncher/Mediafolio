@@ -22,7 +22,6 @@ public class BookRepository : IBookRepository
 
         var MediaObject = new MediaObject
         {
-            UserId = UserId,
             Type = Core.Enums.MediaObjectTypeEnum.Book,
             Book = book
         };

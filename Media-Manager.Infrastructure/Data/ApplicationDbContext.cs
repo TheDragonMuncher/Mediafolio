@@ -16,22 +16,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<DailyLog> DailyLogs {get; set;}
-    public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.ToTable("Users");
-        });
-
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.ToTable("Roles");
-        });
 
         modelBuilder.Entity<Video>(entity =>
         {

@@ -11,6 +11,4 @@ public class MediaObject
     public Book? Book { get; set; }
     public Review? Review { get; set; }
     public ICollection<DailyLog>? DailyLogs { get; set; }
-    public User? User { get; set; } 
-    public string UserId { get; set; }
 }
