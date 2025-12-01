@@ -41,7 +41,7 @@ public class VideoGameController : ControllerBase
 
     // POST: api/videoGames
     [HttpPost]
-    public async Task<ActionResult<VideoGame>> Create(int userId, [FromBody] CreateVideoGameDto videoGameDto)
+    public async Task<ActionResult<VideoGame>> Create([FromBody] CreateVideoGameDto videoGameDto)
     {
         if (!ModelState.IsValid)
         {

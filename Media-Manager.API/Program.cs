@@ -12,18 +12,12 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson(); // Required for JSON Patch support
-
-builder.Services.AddControllers();
-
-builder.Services.AddControllers() //this is to stop circular references 
+builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
-
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -33,9 +27,6 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IVideoGameRepository, VideoGameRepository>();
 builder.Services.AddScoped<IVideoRepository, VideoRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-
-
-// Configure Identity
 
 var app = builder.Build();
 
@@ -47,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

@@ -1,3 +1,4 @@
+using Media_Manager.Core.Converters;
 using MediaManager.Core.DTOs;
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
@@ -41,8 +42,8 @@ public class BookController : ControllerBase
 
     }
 
-    [HttpPost("{userId}")]
-    public async Task<ActionResult<Book>> CreatePost([FromBody] CreateBookDto dto, string userId)
+    [HttpPost]
+    public async Task<ActionResult<Book>> CreatePost([FromBody] CreateBookDto dto)
     {
         if (!ModelState.IsValid)
         {
@@ -62,11 +63,11 @@ public class BookController : ControllerBase
           CoverImageURL = dto.CoverImageURL
         };
 
-        var createdBook = await _repository.CreateAsync(book, userId);
+        var createdBook = await _repository.CreateAsync(book);
 
         return CreatedAtAction(
             nameof(GetById),
-            new { id = createdBook.Id },
+            new {id = createdBook.Id},
             createdBook
         );
     }
@@ -79,16 +80,8 @@ public class BookController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var book = new Book
-        {
-            AuthorName = dto.AuthorName,
-            Title = dto.Title,
-            Summary = dto.Summary,
-            Genre = dto.Genre,
-            NumberOfPages = dto.NumberOfPages,
-            PublicationYear = dto.PublicationYear,
-            UpdatedAt = dto.UpdatedAt
-        };
+        var book = dto.FromUpdateBookDto();
+        book.Id = id;
 
         var updatedBook = await _repository.UpdateAsync(book);
         if (updatedBook == null)

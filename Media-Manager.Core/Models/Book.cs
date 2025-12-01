@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MediaManager.Core.Models;
 
@@ -20,6 +21,6 @@ public class Book
 
     //Relations
     public int MediaObjectId { get; set; }
+    [JsonIgnore]
     public MediaObject? MediaObject { get; set; }
-
 }
