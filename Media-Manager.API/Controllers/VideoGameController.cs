@@ -41,7 +41,7 @@ public class VideoGameController : ControllerBase
 
     // POST: api/videoGames
     [HttpPost]
-    public async Task<ActionResult<VideoGame>> Create(int userId, [FromBody] CreateVideoGameDto videoGameDto)
+    public async Task<ActionResult<VideoGame>> Create([FromBody] CreateVideoGameDto videoGameDto)
     {
         if (!ModelState.IsValid)
         {
@@ -58,7 +58,7 @@ public class VideoGameController : ControllerBase
             CreatedAt = DateTime.UtcNow
         };
 
-        var createdVideoGame = await _repository.CreateAsync(videoGame, userId);
+        var createdVideoGame = await _repository.CreateAsync(videoGame);
 
         return CreatedAtAction(
             nameof(GetById),

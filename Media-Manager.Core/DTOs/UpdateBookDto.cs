@@ -16,6 +16,9 @@ public class UpdateBookDto
     [Required]
     public string Genre { get; set; } = string.Empty;
     [Required]
+    public string ISBN { get; set; } = string.Empty;
+
+    [Required]
     [Range(1, int.MaxValue, ErrorMessage = "The Book Must have a minimum of atleast 1 page")]
     public int NumberOfPages { get; set; }
     [Required]

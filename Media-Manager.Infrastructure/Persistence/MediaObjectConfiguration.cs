@@ -11,7 +11,6 @@ public class MediaObjectConfiguration : IEntityTypeConfiguration<MediaObject>
             builder.HasKey(mo => new { mo.Id});
 
             builder.HasOne(mo => mo.User)
-                .WithMany(u => u.MediaObjects)
-                .HasForeignKey(mo => mo.UserId);
+                .WithMany(u => u.MediaObjects);
     }
 }
