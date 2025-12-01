@@ -58,7 +58,7 @@ public class VideoGameController : ControllerBase
             CreatedAt = DateTime.UtcNow
         };
 
-        var createdVideoGame = await _repository.CreateAsync(videoGame, userId);
+        var createdVideoGame = await _repository.CreateAsync(videoGame);
 
         return CreatedAtAction(
             nameof(GetById),
