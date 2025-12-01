@@ -13,7 +13,7 @@ public class VideoGameRepository : IVideoGameRepository
         _context = context;
     }
 
-    public async Task<VideoGame> CreateAsync(VideoGame game, int userId)
+    public async Task<VideoGame> CreateAsync(VideoGame game)
     {
         // create and add video game/media object
         game.CreatedAt = DateTime.UtcNow;
@@ -28,7 +28,6 @@ public class VideoGameRepository : IVideoGameRepository
         // get the game, media object, and associated user
         var newGame = _context.VideoGames.Where(g => g.MediaObject == mediaObject).FirstOrDefault();
         var newMediaObject = _context.MediaObjects.Where(mo => mo.VideoGame == game).FirstOrDefault();
-        var user = await _context.Users.FindAsync(userId);
 
         // throw error if there are nulls
         if (newGame == null || newMediaObject == null)
@@ -38,7 +37,6 @@ public class VideoGameRepository : IVideoGameRepository
 
         // properly assign ids to media objects
         newMediaObject.Id = newGame.Id;
-        newMediaObject.User = user;
         _context.MediaObjects.Update(newMediaObject);
 
         await _context.SaveChangesAsync();
