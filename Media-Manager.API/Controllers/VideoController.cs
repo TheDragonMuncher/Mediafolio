@@ -42,8 +42,8 @@ public class VideoController : ControllerBase
     }
 
     //POST: api/video
-    [HttpPost("{userId}")]
-    public async Task<ActionResult<Video>> CreatePost([FromBody] CreateVideoDto videoDto, string userId)
+    [HttpPost]
+    public async Task<ActionResult<Video>> CreatePost([FromBody] CreateVideoDto videoDto)
     {
         if (!ModelState.IsValid)
         {
@@ -62,7 +62,7 @@ public class VideoController : ControllerBase
 
         };
 
-        var createdVideo = await _repository.CreateAsync(video, userId);
+        var createdVideo = await _repository.CreateAsync(video);
 
         return CreatedAtAction(
             nameof(GetById),

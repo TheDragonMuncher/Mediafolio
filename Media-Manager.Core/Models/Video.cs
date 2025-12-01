@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models
@@ -39,6 +40,8 @@ namespace MediaManager.Core.Models
         // Relations
 
         public int MediaObjectId { get; set; }
+
+        [JsonIgnore]
         public MediaObject? MediaObject { get; set; }
     }
 }
