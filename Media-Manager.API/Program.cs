@@ -12,7 +12,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+builder.Services.AddControllers().AddNewtonsoftJson(); // Required for JSON Patch support
+
 builder.Services.AddControllers();
 
 builder.Services.AddControllers() //this is to stop circular references 
