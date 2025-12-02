@@ -1,9 +1,7 @@
-using System;
 using Media_Manager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace Media_Manager.Infrastructure.Repositories;
 

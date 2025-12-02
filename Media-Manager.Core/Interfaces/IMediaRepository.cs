@@ -1,4 +1,3 @@
-using System;
 using MediaManager.Core.Models;
 
 namespace Media_Manager.Core.Interfaces;

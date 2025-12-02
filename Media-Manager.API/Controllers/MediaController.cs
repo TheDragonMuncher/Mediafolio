@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-using Media_Manager.Core.Converters;
-using Media_Manager.Core.DTOs;
 using Media_Manager.Core.Interfaces;
 using MediaManager.Core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Media_Manager.API.Controllers

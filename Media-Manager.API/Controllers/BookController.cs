@@ -1,6 +1,5 @@
 using Media_Manager.Core.Converters;
 using MediaManager.Core.DTOs;
-using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,3 @@
-using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
 using MediaManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

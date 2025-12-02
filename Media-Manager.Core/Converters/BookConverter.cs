@@ -1,4 +1,3 @@
-using System;
 using MediaManager.Core.DTOs;
 using MediaManager.Core.Models;
 
