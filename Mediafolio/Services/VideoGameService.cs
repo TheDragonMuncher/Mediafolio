@@ -16,9 +16,22 @@ public class VideoGameService : IVideoGameService
         baseUrl += "/VideoGames";
     }
 
-    public Task<VideoGame> CreateGame(CreateVideoGameDto dto)
+    public async Task<VideoGame> CreateGame(CreateVideoGameDto dto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var content = JsonSerializer.Serialize(dto);
+            var response = await _httpClient.PostAsJsonAsync(baseUrl, content);
+            response.EnsureSuccessStatusCode();
+
+            // will likely need changing
+            var responseContent = JsonSerializer.Deserialize<VideoGame>(await response.Content.ReadAsStringAsync());
+            if(responseContent == null)
+            {
+                return null;
+            }
+            return responseContent;
+        }
     }
 
     public async Task<bool> DeleteGame(int id)
@@ -42,10 +55,6 @@ public class VideoGameService : IVideoGameService
         catch(HttpRequestException e)
         {
             throw new InvalidOperationException("Failed to get video game results. Please check your internet connection.",e);
-        }
-        catch(JsonException e)
-        {
-            throw new InvalidOperationException("Failed to process video game results.",e);
         }
         catch(Exception)
         {
