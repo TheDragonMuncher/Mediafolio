@@ -32,6 +32,18 @@ public class VideoGameService : IVideoGameService
             }
             return responseContent;
         }
+        catch(HttpRequestException e)
+        {
+            throw new InvalidOperationException("Failed to get video game results. Please check your internet connection.",e);
+        }
+        catch(JsonException e)
+        {
+            throw new InvalidOperationException("Failed to process video game results.",e);
+        }
+        catch(Exception)
+        {
+            throw;
+        }
     }
 
     public async Task<bool> DeleteGame(int id)
