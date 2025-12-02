@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.Tests", "Media-Manager.Tests\Media-Manager.Tests.csproj", "{AF2C21F7-4DB8-4EF7-A5FD-BDBD98C3CAB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.MVC", "Media-Manager.MVC\Media-Manager.MVC.csproj", "{1C9DE41F-D043-4D5E-A116-A98CB8746E8E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media-Manager.API", "Media-Manager.API\Media-Manager.API.csproj", "{CD497630-6768-4D51-A93D-B3915B7810E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediafolio", "Mediafolio\Mediafolio.csproj", "{603A41F1-80F9-4036-BA49-28C08926F15F}"
