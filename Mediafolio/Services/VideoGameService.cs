@@ -21,9 +21,36 @@ public class VideoGameService : IVideoGameService
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteGame(int id)
+    public async Task<bool> DeleteGame(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if(id <= 0)
+            {
+                return false;
+            }
+            var url = $"{baseUrl}/{id}";
+            var response = await _httpClient.DeleteAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            return false;
+        } 
+        catch(HttpRequestException e)
+        {
+            throw new InvalidOperationException("Failed to get video game results. Please check your internet connection.",e);
+        }
+        catch(JsonException e)
+        {
+            throw new InvalidOperationException("Failed to process video game results.",e);
+        }
+        catch(Exception)
+        {
+            throw;
+        }
     }
 
     public async Task<ICollection<VideoGame>> GetAllGames()
@@ -36,7 +63,7 @@ public class VideoGameService : IVideoGameService
             var content = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<ICollection<VideoGame>>(content);
 
-            if (result == null)
+            if(result == null)
             {
                 return new List<VideoGame>();
             }
@@ -60,7 +87,7 @@ public class VideoGameService : IVideoGameService
     {
         try
         {
-            if (id <= 0)
+            if(id <= 0)
             {
                 return null;
             }
