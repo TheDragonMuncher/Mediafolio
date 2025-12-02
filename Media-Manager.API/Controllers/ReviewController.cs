@@ -25,14 +25,20 @@ namespace Media_Manager.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var review = dto.FromCreateReviewDto();
+            var review = new Review
+            {
+                Title = dto.Title,
+                Content = dto.Content,
+                Rating = dto.Rating,
+                MediaObjectId = MediaId
+            };
 
             review = await _repository.CreateAsync(review);
 
             if (review == null)
                 return NotFound($"The review with the id {MediaId} was not found");
 
-           return CreatedAtAction(nameof(GetReviewById), new { mediaId = MediaId, id = review.Id }, review);
+          return CreatedAtAction(nameof(GetReviewById), new { reviewId = review.Id }, review);
         }
 
         [HttpGet]
