@@ -10,4 +10,6 @@ public class CreateDailyLogDto
     // Usage Time will be measured in hours. This will be how much the user has used the media object that day. 
     [Required]
     public double UsageTime {get;set;}
+    [Required]
+    public int MediaObjectId {get;set;}
 }
