@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MediaManager.Core.Models;
 
@@ -13,6 +14,7 @@ public class Review
     public DateTime? UpdatedAt { get; set; }
     //relationships
     public int MediaObjectId { get; set; }
+    [JsonIgnore]
     public MediaObject MediaObject { get; set; }
 
 }

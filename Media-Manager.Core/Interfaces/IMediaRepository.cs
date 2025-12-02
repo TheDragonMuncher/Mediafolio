@@ -5,7 +5,7 @@ namespace Media_Manager.Core.Interfaces;
 
 public interface IMediaRepository
 {
-    Task<ICollection<object>> GetAllMedia();
+    Task<ICollection<MediaObject>> GetAllMedia();
     Task<MediaObject?> GetMediaById(int MediaId);
 
 }

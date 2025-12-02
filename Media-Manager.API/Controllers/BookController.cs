@@ -43,7 +43,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Book>> CreatePost([FromBody] CreateBookDto dto)
+    public async Task<ActionResult<Book>> CreateBook([FromBody] CreateBookDto dto)
     {
         if (!ModelState.IsValid)
         {
@@ -52,7 +52,6 @@ public class BookController : ControllerBase
 
         var book = new Book
         {
-          
           Title = dto.Title,
           AuthorName = dto.AuthorName,
           Summary = dto.Summary,

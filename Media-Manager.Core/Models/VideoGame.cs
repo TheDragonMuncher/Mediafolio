@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MediaManager.Core.Enums;
 
 namespace MediaManager.Core.Models;
@@ -35,6 +36,7 @@ public class VideoGame
     // Relations
 
     public int MediaObjectId { get; set; }
+    [JsonIgnore]
     public MediaObject? MediaObject { get; set; }
 
 }

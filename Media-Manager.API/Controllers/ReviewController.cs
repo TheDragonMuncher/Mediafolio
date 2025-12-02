@@ -2,9 +2,7 @@ using Media_Manager.Core.Converters;
 using Media_Manager.Core.DTOs;
 using MediaManager.Core.Interfaces;
 using MediaManager.Core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Media_Manager.API.Controllers
 {
@@ -16,7 +14,25 @@ namespace Media_Manager.API.Controllers
 
         public ReviewController(IReviewRepository repository)
         {
-            _repository = repository;    
+            _repository = repository;
+        }
+
+        [HttpPost("{MediaId}")]
+        public async Task<ActionResult<Review>> CreateReview(int MediaId, [FromBody] CreateReviewDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var review = dto.FromCreateReviewDto();
+
+            review = await _repository.CreateAsync(review);
+
+            if (review == null)
+                return NotFound($"The review with the id {MediaId} was not found");
+
+           return CreatedAtAction(nameof(GetReviewById), new { mediaId = MediaId, id = review.Id }, review);
         }
 
         [HttpGet]
@@ -27,7 +43,7 @@ namespace Media_Manager.API.Controllers
         }
 
         [HttpGet("{reviewId}")]
-         public async Task<ActionResult<Review>> GetReviewById(int reviewId)
+        public async Task<ActionResult<Review>> GetReviewById(int reviewId)
         {
             var review = await _repository.GetByIdAsync(reviewId);
             if (review == null)
@@ -41,7 +57,7 @@ namespace Media_Manager.API.Controllers
         public async Task<IActionResult> DeleteReview(int reviewId)
         {
             var deleted = await _repository.DeleteAsync(reviewId);
-            if(!deleted)
+            if (!deleted)
             {
                 return NotFound($"review with id {reviewId} was not found");
             }

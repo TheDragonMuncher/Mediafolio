@@ -14,19 +14,21 @@ public class MediaRepository : IMediaRepository
     {
         _context = context;
     }
-    public async Task<ICollection<object>> GetAllMedia()
+    public async Task<ICollection<MediaObject>> GetAllMedia()
     {
         var books = await _context.Books.ToListAsync();
         var videos = await _context.Videos.ToListAsync();
         var videoGames = await _context.VideoGames.ToListAsync();
 
 
-        var media = new List<object>();
-        media.AddRange(books);
-        media.AddRange(videos);
-        media.AddRange(videoGames);
+        // var media = new List<object>();
+        // media.AddRange(books);
+        // media.AddRange(videos);
+        // media.AddRange(videoGames);
 
-        return media;
+        // return media;
+
+        return await _context.MediaObjects.ToListAsync();
     }
 
     public async Task<MediaObject?> GetMediaById(int MediaId)

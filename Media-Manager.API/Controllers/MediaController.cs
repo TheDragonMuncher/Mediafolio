@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Media_Manager.Core.Converters;
+using Media_Manager.Core.DTOs;
 using Media_Manager.Core.Interfaces;
 using MediaManager.Core.Models;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +18,7 @@ namespace Media_Manager.API.Controllers
         {
             mediaRepository = repository;
         }
+
 
         [HttpGet]
         public async Task<ActionResult<ICollection<MediaObject>>> GetAllMedia()
