@@ -1,3 +1,6 @@
+using MediaManager.Core.DTOs;
+using MediaManager.Core.Models;
+
 namespace Mediafolio.Services;
 
 public interface IVideoGameService {
