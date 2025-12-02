@@ -22,22 +22,8 @@ public class VideoGameRepository : IVideoGameRepository
             Type = Core.Enums.MediaObjectTypeEnum.VideoGame,
             VideoGame = game
         };
-        _context.VideoGames.Add(game);
+        // _context.VideoGames.Add(game);
         _context.MediaObjects.Add(mediaObject);
-
-        // get the game, media object, and associated user
-        var newGame = _context.VideoGames.Where(g => g.MediaObject == mediaObject).FirstOrDefault();
-        var newMediaObject = _context.MediaObjects.Where(mo => mo.VideoGame == game).FirstOrDefault();
-
-        // throw error if there are nulls
-        if (newGame == null || newMediaObject == null)
-        {
-            throw new Exception();
-        }
-
-        // properly assign ids to media objects
-        newMediaObject.Id = newGame.Id;
-        _context.MediaObjects.Update(newMediaObject);
 
         await _context.SaveChangesAsync();
         return game;

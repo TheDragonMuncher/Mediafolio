@@ -8,6 +8,6 @@ public class MediaObjectConfiguration : IEntityTypeConfiguration<MediaObject>
 {
     public void Configure(EntityTypeBuilder<MediaObject> builder)
     {
-            builder.HasKey(mo => new { mo.Id});
+            builder.HasKey(mo => mo.Id);
     }
 }
