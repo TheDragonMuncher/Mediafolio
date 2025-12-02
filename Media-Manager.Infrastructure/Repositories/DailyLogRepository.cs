@@ -13,19 +13,24 @@ public class DailyLogRepository : IDailyLogRepository
     {
         _context = context;
     }
-    public async Task<DailyLog> Create(DailyLog log, int mediaObjectId)
+    public async Task<DailyLog> CreateAsync(DailyLog log, int mediaObjectId)
     {
         log.CreatedAt = DateTime.UtcNow;
+
         var mediaObject = await _context.MediaObjects.FindAsync(mediaObjectId);
+
+        if(mediaObject == null)
+            return null;
+            
         log.MediaObject = mediaObject;
         log.MediaObjectId = mediaObjectId;
-        mediaObject.DailyLogs.Append(log);
+        // mediaObject.DailyLogs.Add(log);
         _context.DailyLogs.Add(log);
         await _context.SaveChangesAsync();
         return log;
     }
 
-    public async Task<bool> Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var log = await _context.DailyLogs.FindAsync(id);
         if (log == null)
@@ -37,17 +42,17 @@ public class DailyLogRepository : IDailyLogRepository
         return true;
     }
 
-    public async Task<ICollection<DailyLog>> GetAll()
+    public async Task<ICollection<DailyLog>> GetAllAsync()
     {
         return await _context.DailyLogs.ToListAsync();
     }
 
-    public async Task<DailyLog> GetById(int id)
+    public async Task<DailyLog> GetByIdAsync(int id)
     {
         return await _context.DailyLogs.FindAsync(id);
     }
 
-    public async Task<DailyLog> Update(DailyLog log)
+    public async Task<DailyLog> UpdateAsync(DailyLog log)
     {
         var currentLog = await _context.DailyLogs.FindAsync(log.Id);
         if (currentLog == null)

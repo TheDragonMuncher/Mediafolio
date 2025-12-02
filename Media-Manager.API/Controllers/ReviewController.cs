@@ -33,12 +33,19 @@ namespace Media_Manager.API.Controllers
                 MediaObjectId = MediaId
             };
 
-            review = await _repository.CreateAsync(review);
+            try
+            {
+                review = await _repository.CreateAsync(review);
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Can only have 1 review per media");
+            }
 
             if (review == null)
                 return NotFound($"The review with the id {MediaId} was not found");
 
-          return CreatedAtAction(nameof(GetReviewById), new { reviewId = review.Id }, review);
+            return CreatedAtAction(nameof(GetReviewById), new { reviewId = review.Id }, review);
         }
 
         [HttpGet]
@@ -78,10 +85,11 @@ namespace Media_Manager.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var updateReview = dto.FromUpdateReviewDto();
-            updateReview.Id = reviewId;
-            await _repository.UpdateAsync(updateReview);
-            return Ok(updateReview);
+            var review = dto.FromUpdateReviewDto();
+
+            review.Id = reviewId;
+            var updatedReview = await _repository.UpdateAsync(review);
+            return Ok(updatedReview);
 
         }
 

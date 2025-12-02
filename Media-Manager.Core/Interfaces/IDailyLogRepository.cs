@@ -4,9 +4,9 @@ namespace MediaManager.Core.Interfaces;
 
 public interface IDailyLogRepository
 {
-    Task<DailyLog> GetById(int id);
-    Task<ICollection<DailyLog>> GetAll();
-    Task<DailyLog> Create(DailyLog log, int mediaObjectId);
-    Task<DailyLog> Update(DailyLog log);
-    Task<bool> Delete(int id);
+    Task<DailyLog> GetByIdAsync(int id);
+    Task<ICollection<DailyLog>> GetAllAsync();
+    Task<DailyLog> CreateAsync(DailyLog log, int mediaObjectId);
+    Task<DailyLog> UpdateAsync(DailyLog log);
+    Task<bool> DeleteAsync(int id);
 }

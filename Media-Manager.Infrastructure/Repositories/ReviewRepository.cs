@@ -21,6 +21,7 @@ public class ReviewRepository : IReviewRepository
         {
             return null;
         }
+
         review.CreatedAt = DateTime.UtcNow;
         _context.Reviews.Add(review);
         
@@ -29,9 +30,24 @@ public class ReviewRepository : IReviewRepository
 
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var currentReview = await _context.Reviews.FindAsync(id);
+        if (currentReview == null)
+            return false;
+
+        var mediaObject = await _context.MediaObjects.FindAsync(currentReview.MediaObjectId);
+
+        if (mediaObject == null)
+        {
+            _context.Reviews.Remove(currentReview);
+            return true; 
+        }
+
+        _context.MediaObjects.Remove(mediaObject);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 
     public async Task<ICollection<Review>> GetAllAsync()

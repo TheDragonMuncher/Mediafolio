@@ -83,7 +83,8 @@ public class VideoGameController : ControllerBase
             EstimatedPlayTime = updateVideoGameDto.EstimatedPlayTime,
             UserPlayTime = updateVideoGameDto.UserPlayTime,
             Tags = updateVideoGameDto.Tags,
-            UpdatedAt = DateTime.UtcNow
+            UpdatedAt = DateTime.UtcNow,
+            Id = id
         };
 
         var updatedVideoGame = await _repository.UpdateAsync(videoGame);

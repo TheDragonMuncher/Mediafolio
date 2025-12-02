@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MediaManager.Core.Models;
 
@@ -12,6 +13,7 @@ public class DailyLog
     [Required]
     public double UsageTime {get;set;}
     public DateTime CreatedAt {get;set;}
+    [JsonIgnore]
     public MediaObject? MediaObject {get;set;}
     public int MediaObjectId {get;set;}
 }
