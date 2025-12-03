@@ -1,6 +1,6 @@
-using MediaManager.Core.Models;
-using MediaManager.Core.DTOs;
+using Mediafolio.DTOs;
 using System.Text.Json;
+using Mediafolio.Models;
 
 namespace Mediafolio.Services;
 

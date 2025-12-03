@@ -1,5 +1,5 @@
-using MediaManager.Core.DTOs;
-using MediaManager.Core.Models;
+using Mediafolio.DTOs;
+using Mediafolio.Models;
 
 namespace Mediafolio.Services;
 
