@@ -24,7 +24,6 @@ public class VideoGameService : IVideoGameService
             var response = await _httpClient.PostAsJsonAsync(baseUrl, content);
             response.EnsureSuccessStatusCode();
 
-            // will likely need changing
             var responseContent = JsonSerializer.Deserialize<VideoGame>(await response.Content.ReadAsStringAsync());
             if(responseContent == null)
             {
@@ -135,8 +134,36 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public Task<VideoGame> UpdateGame(UpdateVideoGameDto dto)
+    public async Task<VideoGame> UpdateGame(int id, UpdateVideoGameDto dto)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if(id <= 0)
+            {
+                return null;
+            }
+            var url = $"{baseUrl}/{id}";
+            var response = await _httpClient.PutAsJsonAsync(url, JsonSerializer.Serialize(dto));
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = JsonSerializer.Deserialize<VideoGame>(await response.Content.ReadAsStringAsync());
+            if(responseContent == null)
+            {
+                return null;
+            }
+            return responseContent;
+        } 
+        catch(HttpRequestException e)
+        {
+            throw new InvalidOperationException("Failed to get video game results. Please check your internet connection.",e);
+        }
+        catch(JsonException e)
+        {
+            throw new InvalidOperationException("Failed to process video game results.",e);
+        }
+        catch(Exception)
+        {
+            throw;
+        }
     }
 }
