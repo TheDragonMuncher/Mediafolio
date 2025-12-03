@@ -13,7 +13,7 @@ public class VideoGameService : IVideoGameService
     {
         _httpClient = client;
         baseUrl = config["Media-Manager.API:Base Url"] ?? "https://media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/api";
-        baseUrl += "/VideoGames";
+        baseUrl += "/VideoGame";
     }
 
     public async Task<VideoGame> CreateGame(CreateVideoGameDto dto)
