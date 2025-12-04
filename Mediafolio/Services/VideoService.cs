@@ -31,36 +31,30 @@ namespace Mediafolio.Services;
 
     public async Task<ICollection<VideoResponse>> GetAllVideosAsync()
     {
-        var url = _apiUrl; 
-        var response = await _httpClient.GetAsync(url); 
-
-        response.EnsureSuccessStatusCode(); 
-
-        var content = await response.Content.ReadAsStringAsync(); 
-
-        var pageLoadResponse = JsonSerializer.Deserialize<VideoResponse>
+        try
+        {
+        var url = _apiUrl;
+        var response = await _httpClient.GetAsync($"{url}api/videos");
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStringAsync();
+        ICollection<Video>? pageLoadResponse = JsonSerializer.Deserialize<List<Video>>
         (
-            content, 
+            content,
             new JsonSerializerOptions {PropertyNameCaseInsensitive = true}
         );
 
         if (pageLoadResponse != null)
         {
-            return pageLoadResponse; 
+            return pageLoadResponse;
+        }
+        else
+        {
+            return new List<Video>();
         }
 
-
-
-
-    }
-
-    public Task<VideoResponse?> GetVideoIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<VideoResponse?> UpdateVideoAsync(int id, UpdateVideoDto videoDto)
-    {
-        throw new NotImplementedException();
+        } catch (Exception)
+        {
+            throw;
+        }
     }
 }

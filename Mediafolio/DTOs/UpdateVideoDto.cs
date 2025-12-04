@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using MediaManager.Core.Enums;
+using Mediafolio.Enums;
 
 
 namespace Mediafolio.DTOs;
