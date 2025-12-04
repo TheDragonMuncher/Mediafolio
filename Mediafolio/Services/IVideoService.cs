@@ -10,12 +10,12 @@ namespace Mediafolio.Services;
 
 public interface IVideoService
 {
-    Task<ICollection<VideoResponse>> GetAllVideosAsync();
+    Task<ICollection<Video>> GetAllVideosAsync();
 
-    Task<VideoResponse?> GetVideoIdAsync(int id);
-    Task<VideoResponse> CreateVideoAsync(CreateVideoDto videoDto);
-    Task<VideoResponse?> UpdateVideoAsync(int id, UpdateVideoDto videoDto); 
-    Task<VideoResponse?> DeleteVideoAsync(int id);
+    Task<Video?> GetVideoIdAsync(int id);
+    Task<Video> CreateVideoAsync(CreateVideoDto videoDto);
+    Task<Video?> UpdateVideoAsync(int id, UpdateVideoDto videoDto); 
+    Task<Video?> DeleteVideoAsync(int id);
 
 
 

@@ -19,17 +19,17 @@ namespace Mediafolio.Services;
         _apiUrl = configuration["MediaFolio:ApiUrl"] ?? "https://media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/";
     }
 
-    public Task<VideoResponse> CreateVideoAsync(CreateVideoDto videoDto)
+    public Task<Video> CreateVideoAsync(CreateVideoDto videoDto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<VideoResponse?> DeleteVideoAsync(int id)
+    public Task<Video?> DeleteVideoAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<ICollection<VideoResponse>> GetAllVideosAsync()
+    public async Task<ICollection<Video>> GetAllVideosAsync()
     {
         try
         {
@@ -56,5 +56,15 @@ namespace Mediafolio.Services;
         {
             throw;
         }
+    }
+
+    public Task<Video?> GetVideoIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Video?> UpdateVideoAsync(int id, UpdateVideoDto videoDto)
+    {
+        throw new NotImplementedException();
     }
 }
