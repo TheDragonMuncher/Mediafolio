@@ -2,12 +2,11 @@
 @using Mediafolio.Services
 @using Mediafolio.Models
 @inject IVideoGameService VideoGameService
-@inject NavigationManager Navigation
 
-<PageTitle>Movie Collection</PageTitle>
+<PageTitle>Video Game Collection</PageTitle>
 
 <div class="container mt-4">
-    <h2>Movie Collection</h2>
+    <h2>Video Game Collection</h2>
 
     <!-- Loading Indicator -->
     @if(isLoading)
@@ -40,7 +39,7 @@
     <!-- Results -->
     @if (videoGames.Count > 0 && !isLoading)
     {
-        <h4 class="mb-3">Found @videoGames.Count result@(movies.Count != 1 ? "s" : "")</h4>
+        <h4 class="mb-3">Found @videoGames.Count result@(videoGames.Count != 1 ? "s" : "")</h4>
 
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
             @foreach (var videoGame in videoGames)

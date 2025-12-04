@@ -1,0 +1,41 @@
+@using Mediafolio.Models
+@inject NavigationManager Navigation
+
+<div class="col">
+    <div class="card h-100 VideoGameData-card" @onclick="() => NavigateToDetails(VideoGameData.Id)">
+        <div class="card-body">
+            <h6 class="card-title">@VideoGameData.Title</h6>
+            <p class="card-text">
+                <small>Estimated Play Time (hrs): @VideoGameData.EstimatedPlayTime</small><br />
+                <small>User Play Time (hrs): @VideoGameData.UserPlayTime</small><br />
+                <small>Description: @VideoGameData.Description</small><br />
+                <small>Tags: </small>
+                @foreach(tag in VideoGameData.Tags)
+                {
+                    <small>@tag, </small>
+                    @(Counter += 1)
+                    @if(Counter % 8 == 0)
+                    {
+                        <br />
+                    }
+                }
+            </p>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public VideoGame? VideoGameData {get;set;} = null;
+
+    void NavigateToDailyLogs(int id)
+    {
+        Navigation.NavigateTo($"/dailylogs/{id}")
+    }
+
+    void NavigateToReview(int id)
+    {
+        Navigation.NavigateTo($"/review/{id}")
+    }
+}
