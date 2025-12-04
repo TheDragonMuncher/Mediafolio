@@ -4,17 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mediafolio.Components.Pages;
 using Mediafolio.DTOs;
+using Mediafolio.Models;
 
 namespace Mediafolio.Services;
 
 public interface IVideoService
 {
-    Task<ICollection<Video>> GetAllVideosAsync();
+    Task<ICollection<VideoResponse>> GetAllVideosAsync();
 
-    Task<Video?> GetVideoIdAsync(int id);
-    Task<Video> CreateVideoAsync(CreateVideoDto videoDto);
-    Task<Video?> UpdateVideoAsync(int id, UpdateVideoDto videoDto); 
-    Task<Video?> DeleteVideoAsync(int id);
+    Task<VideoResponse?> GetVideoIdAsync(int id);
+    Task<VideoResponse> CreateVideoAsync(CreateVideoDto videoDto);
+    Task<VideoResponse?> UpdateVideoAsync(int id, UpdateVideoDto videoDto); 
+    Task<VideoResponse?> DeleteVideoAsync(int id);
 
 
 

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using Mediafolio.Enums;
 namespace Mediafolio.Models;
 
-    public class Video
+    public class VideoResponse
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
