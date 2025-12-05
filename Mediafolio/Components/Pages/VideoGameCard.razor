@@ -1,8 +1,9 @@
-@using Mediafolio.Models
-@inject NavigationManager Navigation
+@using Mediafolio.Enums;
+@using Mediafolio.Models;
+@inject NavigationManager Navigation;
 
 <div class="col">
-    <div class="card h-100 VideoGameData-card" @onclick="() => NavigateToDetails(VideoGameData.Id)">
+    <div class="card h-100 VideoGameData-card"> @* @onclick="() => NavigateToEditor(VideoGameData)"> *@
         <div class="card-body">
             <h6 class="card-title">@VideoGameData.Title</h6>
             <p class="card-text">
@@ -10,14 +11,9 @@
                 <small>User Play Time (hrs): @VideoGameData.UserPlayTime</small><br />
                 <small>Description: @VideoGameData.Description</small><br />
                 <small>Tags: </small>
-                @foreach(tag in VideoGameData.Tags)
+                @foreach(var tag in VideoGameData.Tags)
                 {
                     <small>@tag, </small>
-                    @(Counter += 1)
-                    @if(Counter % 8 == 0)
-                    {
-                        <br />
-                    }
                 }
             </p>
         </div>
@@ -31,11 +27,11 @@
 
     void NavigateToDailyLogs(int id)
     {
-        Navigation.NavigateTo($"/dailylogs/{id}")
+        Navigation.NavigateTo($"/dailylogs/{id}");
     }
 
     void NavigateToReview(int id)
     {
-        Navigation.NavigateTo($"/review/{id}")
+        Navigation.NavigateTo($"/review/{id}");
     }
 }
