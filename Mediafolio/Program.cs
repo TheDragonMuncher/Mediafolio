@@ -1,6 +1,9 @@
 using Mediafolio.Components;
+using Mediafolio.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient<IVideoGameService, VideoGameService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

@@ -3,15 +3,15 @@
 @inject NavigationManager Navigation;
 
 <div class="col">
-    <div class="card h-100 VideoGameData-card"> @* @onclick="() => NavigateToEditor(VideoGameData)"> *@
+    <div class="card h-100 videoGameData-card"> @* @onclick="() => NavigateToEditor(videoGameData)"> *@
         <div class="card-body">
-            <h6 class="card-title">@VideoGameData.Title</h6>
+            <h6 class="card-title">@videoGameData.Title</h6>
             <p class="card-text">
-                <small>Estimated Play Time (hrs): @VideoGameData.EstimatedPlayTime</small><br />
-                <small>User Play Time (hrs): @VideoGameData.UserPlayTime</small><br />
-                <small>Description: @VideoGameData.Description</small><br />
+                <small>Estimated Play Time (hrs): @videoGameData.EstimatedPlayTime</small><br />
+                <small>User Play Time (hrs): @videoGameData.UserPlayTime</small><br />
+                <small>Description: @videoGameData.Description</small><br />
                 <small>Tags: </small>
-                @foreach(var tag in VideoGameData.Tags)
+                @foreach(var tag in videoGameData.Tags)
                 {
                     <small>@tag, </small>
                 }
@@ -23,7 +23,7 @@
 @code
 {
     [Parameter]
-    public VideoGame? VideoGameData {get;set;} = null;
+    public Mediafolio.Models.VideoGame? videoGameData {get;set;}
 
     void NavigateToDailyLogs(int id)
     {

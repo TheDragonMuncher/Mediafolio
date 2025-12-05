@@ -1,7 +1,7 @@
 @page "/videogame"
-@using Mediafolio.Services
-@using Mediafolio.Models
-@inject IVideoGameService VideoGameService
+@using Mediafolio.Services;
+@using Mediafolio.Models;
+@inject Mediafolio.Services.IVideoGameService VideoGameService;
 
 <PageTitle>Video Game Collection</PageTitle>
 
@@ -44,7 +44,7 @@
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
             @foreach (var videoGame in videoGames)
             {
-                <Card VideoGameData = "@VideoGame"></Card>
+                <Card VideoGameData = "@videoGame"></Card>
             }
         </div>
     }
@@ -52,7 +52,7 @@
 
 @code 
 {
-    List<VideoGame> videoGames = new List<VideoGame>();
+    List<Mediafolio.Models.VideoGame> videoGames = new List<Mediafolio.Models.VideoGame>();
     bool isLoading = false;
     string? errorMessage = null;
 
@@ -63,7 +63,7 @@
             isLoading = true;
             errorMessage = null;
             
-            var results = await VideoGameService.GetVideoGames();
+            List<Mediafolio.Models.VideoGame> results = await VideoGameService.GetAllGames();
 
             if(results is not null)
             {

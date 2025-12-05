@@ -6,10 +6,10 @@ namespace Mediafolio.Services;
 
 public class VideoGameService : IVideoGameService
 {
-    readonly HttpClient _httpClient;
+    readonly System.Net.Http.HttpClient _httpClient;
     readonly string baseUrl;
 
-    public VideoGameService(HttpClient client, IConfiguration config)
+    public VideoGameService(System.Net.Http.HttpClient client, IConfiguration config)
     {
         _httpClient = client;
         baseUrl = config["Media-Manager.API:Base Url"] ?? "https://media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/api";
@@ -73,7 +73,7 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public async Task<ICollection<VideoGame>> GetAllGames()
+    public async Task<List<VideoGame>> GetAllGames()
     {
         try
         {
@@ -81,11 +81,11 @@ public class VideoGameService : IVideoGameService
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<ICollection<VideoGame>>(content);
+            var result = JsonSerializer.Deserialize<List<Mediafolio.Models.VideoGame>>(content);
 
             if(result == null)
             {
-                return new List<VideoGame>();
+                return new List<Mediafolio.Models.VideoGame>();
             }
             return result;
         } 
