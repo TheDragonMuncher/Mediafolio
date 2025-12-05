@@ -4,6 +4,7 @@ using Mediafolio.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<IVideoGameService, VideoGameService>();
+builder.Services.AddHttpClient<IBookService, BookService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

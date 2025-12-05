@@ -1,1 +1,111 @@
 @page "/book"
+@using Mediafolio.Services;
+@using Mediafolio.Models;
+@inject Mediafolio.Services.IBookService bookservice;
+
+<PageTitle>Books</PageTitle>
+
+<div class="container mt-4">
+    <h2>Book Collection</h2>
+
+    <!-- Loading Indicator -->
+    @if(isLoading)
+    {
+        <div class="text-center my-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Retrieving books...</p>
+        </div>
+    }
+
+    <!-- Error Message -->
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>Error:</strong> @errorMessage
+            <button type="button" class="btn-close" @onclick="ClearError"></button>
+        </div>
+    }
+
+    <!-- No Results Message -->
+    @if (!isLoading && books.Count == 0 && string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-info">
+            No books found.
+            <button class="btn btn-primary w-100"
+                
+                disabled="@isLoading">
+                    <span>Reload books.</span>
+            </button>
+        @books.Count
+        </div>
+    }
+
+    <!-- Results -->
+    @if (books.Count > 0 && !isLoading)
+    {
+        <h4 class="mb-3">Found @books.Count result@(books.Count != 1 ? "s" : "")</h4>
+
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
+            @foreach (var book in books)
+            {
+                @* <BookCard bookData = "@book"></BookCard> *@
+                <div class="col">
+                    <div class="card h-100"> 
+                        <div class="card-body">
+                            <h6 class="card-title">@book.Title</h6>
+                            <p class="card-text">
+                                <small>Description: @book.Title</small><br />
+                                <small>Description: @book.AuthorName</small><br />
+                                <small>Description: @book.Summary</small><br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code 
+{
+    private List<Mediafolio.Models.Book> books = new List<Mediafolio.Models.Book>();
+    private bool isLoading = false;
+    private string? errorMessage = null;
+
+    private async Task Getbooks()
+    {
+        try 
+        {
+            isLoading = true;
+            errorMessage = null;
+            books.Clear();
+            
+            List<Mediafolio.Models.Book>? results = await bookservice.GetallBooks();
+
+            if(results is not null)
+            {
+                books = results;
+            }
+        }
+        catch(Exception e)
+        {
+            errorMessage = e.Message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+    
+    void ClearError()
+    {
+        errorMessage = null;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Getbooks();
+    }
+}
