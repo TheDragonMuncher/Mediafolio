@@ -12,11 +12,12 @@ public class VideoGameService : IVideoGameService
     public VideoGameService(System.Net.Http.HttpClient client, IConfiguration config)
     {
         _httpClient = client;
-        baseUrl = config["Media-Manager.API:Base Url"] ?? "https://media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/api";
-        baseUrl += "/VideoGame";
+        // baseUrl = config["ConnectionStrings:DefaultConnection"] ?? "media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/api";
+        baseUrl = "https://media-manager-a0dqheccg5fqg0dq.canadacentral-01.azurewebsites.net/api/VideoGame";
+        // baseUrl += "/VideoGame";
     }
 
-    public async Task<VideoGame> CreateGame(CreateVideoGameDto dto)
+    public async Task<VideoGame> CreateGameAsync(CreateVideoGameDto dto)
     {
         try
         {
@@ -45,7 +46,7 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public async Task<bool> DeleteGame(int id)
+    public async Task<bool> DeleteGameAsync(int id)
     {
         try
         {
@@ -73,7 +74,7 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public async Task<List<VideoGame>> GetAllGames()
+    public async Task<List<VideoGame>> GetAllGamesAsync()
     {
         try
         {
@@ -81,7 +82,7 @@ public class VideoGameService : IVideoGameService
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<List<Mediafolio.Models.VideoGame>>(content);
+            List<Mediafolio.Models.VideoGame>? result = JsonSerializer.Deserialize<List<Mediafolio.Models.VideoGame>>(content, new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
 
             if(result == null)
             {
@@ -103,7 +104,7 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public async Task<VideoGame?> GetGameById(int id)
+    public async Task<VideoGame?> GetGameByIdAsync(int id)
     {
         try
         {
@@ -134,7 +135,7 @@ public class VideoGameService : IVideoGameService
         }
     }
 
-    public async Task<VideoGame> UpdateGame(int id, UpdateVideoGameDto dto)
+    public async Task<VideoGame> UpdateGameAsync(int id, UpdateVideoGameDto dto)
     {
         try
         {

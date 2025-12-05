@@ -33,6 +33,12 @@
     {
         <div class="alert alert-info">
             No video games found.
+            <button class="btn btn-primary w-100"
+                @onclick="GetVideoGames"
+                disabled="@isLoading">
+                    <span>Reload video games.</span>
+            </button>
+        @videoGames.Count
         </div>
     }
 
@@ -44,7 +50,7 @@
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
             @foreach (var videoGame in videoGames)
             {
-                <Card VideoGameData = "@videoGame"></Card>
+                <VideoGameCard VideoGameData = "@videoGame"></VideoGameCard>
             }
         </div>
     }
@@ -52,18 +58,19 @@
 
 @code 
 {
-    List<Mediafolio.Models.VideoGame> videoGames = new List<Mediafolio.Models.VideoGame>();
-    bool isLoading = false;
-    string? errorMessage = null;
+    private List<Mediafolio.Models.VideoGame> videoGames = new List<Mediafolio.Models.VideoGame>();
+    private bool isLoading = false;
+    private string? errorMessage = null;
 
-    async Task GetVideoGames()
+    private async Task GetVideoGames()
     {
         try 
         {
             isLoading = true;
             errorMessage = null;
+            videoGames.Clear();
             
-            List<Mediafolio.Models.VideoGame> results = await VideoGameService.GetAllGames();
+            List<Mediafolio.Models.VideoGame>? results = await VideoGameService.GetAllGamesAsync();
 
             if(results is not null)
             {
@@ -83,5 +90,10 @@
     void ClearError()
     {
         errorMessage = null;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetVideoGames();
     }
 }
