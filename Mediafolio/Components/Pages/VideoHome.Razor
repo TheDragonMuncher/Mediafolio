@@ -1,1 +1,21 @@
 @page "/videoHome"
+
+@using Mediafolio.Services
+@using Mediafolio.Models
+
+@inject IVideoService videoService
+
+@inject NavigationManager navigation 
+
+<PageTitle>Your Video Entries<PageTitle>
+
+@code{
+    private List<Video> videos = new List<Video>();
+
+
+    protected override async Task OnInitializedAsync()
+{
+    SomeStartupMethod();
+    await SomeStartupTask();
+}
+}
